@@ -1,1 +1,2 @@
-# corretor_ortografico
+# Verificador Ortográfico
+Versão 0.1

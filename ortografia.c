@@ -1,14 +1,62 @@
 /*	Feito por Tiago Henrique Conte	
-	Trabalho da disciplina de Programa√ß√£o 2 do BCC UFPR
-	Verificador Ortogr√°fico	*/
+	Trabalho da disciplina de ProgramaÁ„o 2 do BCC UFPR
+	Verificador Ortogr·fico	*/
 
-#include <stdlib.h>
-#include <stdio.h>
+/*#include <stdlib.h>
+#include <stdio.h>*/
+/*#include <string.h>*/
 #include "dicionario.h"
 
-int main(int argc, char const *argv[])
-{
-	
+#define SIZE 50
+
+// Verifica se o char È uma letra
+int eh_letra(char c){
+	// Verifica se È letra minuscula
+	if(c >= 'a' && c <= 'z')
+		return 1;
+	// Verifica se È letra maiuscula
+	else if(c >= 'A' && c <= 'Z')
+		return 1;
+	// Verifica se È letra acentuada
+	else if((c >= -64 && c <= -1))
+		return 1;
+
+	return 0;
+}
+
+int main(int argc, char const *argv[]){	
+
+	tad_dicio dicio;
+	// Armazenamento do dicion·rio na memÛria
+	if(!carrega_dicionario(&dicio)){
+		printf("Erro ao carregar dicion·rio.\nParando programa...\n");
+		return 0;
+	}
+	printf("%d\n", dicio.linhas);
+
+	/*char c;
+	int i;
+
+	c = fgetc(stdin);
+
+	while(!feof(stdin)){
+		// Anda atÈ encontrar uma letra
+		while(!eh_letra(c) && !feof(stdin)){
+			printf("%c", c);
+			c = fgetc(stdin);
+		}
+		// LÍ a palavra
+		char palavra[SIZE+1] = {0};
+		i = 0;
+		while(eh_letra(c) && !feof(stdin)){
+			palavra[i] = c;
+			c = fgetc(stdin);
+			i++;
+		}
+		printf("%s", palavra);
+	}*/
+
+	descarrega_dicionario(&dicio);
 
 	return 0;
 }
