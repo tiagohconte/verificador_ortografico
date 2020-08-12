@@ -63,7 +63,7 @@ int carrega_dicionario(tad_dicio *dicio){
 void descarrega_dicionario(tad_dicio *dicio){
 	int i;
 
-	for(i = 0; i < dicio->linhas; i++)
+	for(i = 0; i <= dicio->linhas; i++)
 		free(dicio->palavras[i]);
 
 	free(dicio->palavras);

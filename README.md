@@ -1,2 +1,2 @@
 # Verificador Ortográfico
-Versão 0.1
+Versão 1.0

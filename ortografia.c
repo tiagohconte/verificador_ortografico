@@ -53,11 +53,13 @@ int main(int argc, char const *argv[]){
 			i++;
 		}
 
-		//Realiza busca da palavra no dicionário
+		// Busca da palavra no dicionário
 		if(!feof(stdin)){
+			// Copia a palavra com todos os caracteres minusculos
 			char copia[strlen(palavra)];
 			strcpy(copia, palavra);
 			minuscula(copia);
+
 			if(busca_dicio(&dicio, copia))
 				printf("%s", palavra);
 			else 
