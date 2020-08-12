@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define DIR "/usr/share/dict/brazilian"
+#define DIR "brazilian"
 #define SIZE 50
 
 /*Definição do tipo dicionario*/
@@ -27,3 +27,6 @@ int cmpfunc(const void * a, const void * b);
 
 // Transforma uma string em totalmente minuscula
 void minuscula(char *str);
+
+//Busca palavra no dicionário
+int busca_dicio(tad_dicio *dicio, char *palavra);

@@ -32,9 +32,8 @@ int main(int argc, char const *argv[]){
 		printf("Erro ao carregar dicionário.\nParando programa...\n");
 		return 0;
 	}
-	printf("%d\n", dicio.linhas);
 
-	/*char c;
+	char c;
 	int i;
 
 	c = fgetc(stdin);
@@ -53,8 +52,18 @@ int main(int argc, char const *argv[]){
 			c = fgetc(stdin);
 			i++;
 		}
-		printf("%s", palavra);
-	}*/
+
+		//Realiza busca da palavra no dicionário
+		if(!feof(stdin)){
+			char copia[strlen(palavra)];
+			strcpy(copia, palavra);
+			minuscula(copia);
+			if(busca_dicio(&dicio, copia))
+				printf("%s", palavra);
+			else 
+				printf("[%s]", palavra);
+		}
+	}
 
 	descarrega_dicionario(&dicio);
 

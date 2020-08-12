@@ -48,7 +48,8 @@ int carrega_dicionario(tad_dicio *dicio){
 		str[strlen(str)-1] = '\0';
 		// Transforma as letras maiusculas em minusculas
 		minuscula(str);
-		strcpy(dicio->palavras[i], str);		
+		strcpy(dicio->palavras[i], str);
+		i++;		
 	}
 	/* 	Ao colocar em minusculas o dicionario ficou desordenado
 		Portanto é feita a reoordenação das palavras */
@@ -64,6 +65,7 @@ void descarrega_dicionario(tad_dicio *dicio){
 
 	for(i = 0; i < dicio->linhas; i++)
 		free(dicio->palavras[i]);
+
 	free(dicio->palavras);
 
 	dicio->palavras = NULL;
@@ -72,7 +74,9 @@ void descarrega_dicionario(tad_dicio *dicio){
 
 // Função de comparação para o sort
 int cmpfunc(const void * a, const void * b){
-   return *(char *)a - *(char *)b; 
+	const char **ia = (const char **)a;
+	const char **ib = (const char **)b;
+	return strcmp(*ia, *ib);
 }
 
 // Transforma uma string em totalmente minuscula
@@ -84,4 +88,15 @@ void minuscula(char *str){
 			str[i] += 32;
 		i++;
 	}
+}
+
+/* Busca palavra no dicionário
+	Retorna 1 caso esteja no dicionário e 0 caso contrário*/
+int busca_dicio(tad_dicio *dicio, char *palavra){
+	int *busca;
+
+	busca = (int*) bsearch(&palavra, dicio->palavras, dicio->linhas, sizeof(char*), cmpfunc);
+	if(busca != NULL)
+		return 1;
+	return 0;
 }
