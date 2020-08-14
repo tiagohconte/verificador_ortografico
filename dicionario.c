@@ -32,12 +32,14 @@ int carrega_dicionario(tad_dicio *dicio){
 
 	char str[SIZE+1];
 	while(!feof(arq_dicio)){
-		fgets(str, SIZE, arq_dicio);
-		// Aloca espaço para a palavra
+		// Verifica se a alocação feita anteriormente aidna é suficiente para o número de linhas
 		if(dicio->linhas == (num_aloc * VALOR_ALOC)){
 			num_aloc++;
 			dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
 		}
+
+		fgets(str, SIZE, arq_dicio);
+		// Aloca espaço para a palavra		
 		dicio->palavras[dicio->linhas] = malloc(strlen(str) * sizeof(char));
 		if(dicio->palavras[dicio->linhas] == NULL){
 			fprintf(stderr, "Erro ao alocar palavra.\n");
