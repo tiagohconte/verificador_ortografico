@@ -34,10 +34,9 @@ int carrega_dicionario(tad_dicio *dicio){
 	while(!feof(arq_dicio)){
 		fgets(str, SIZE, arq_dicio);
 		// Aloca espaço para a palavra
-		if(dicio->linhas > (num_aloc * VALOR_ALOC)){
+		if(dicio->linhas == (num_aloc * VALOR_ALOC)){
 			num_aloc++;
 			dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
-			printf("Linhas: %d, num_aloc: %d\n", dicio->linhas, num_aloc);
 		}
 		dicio->palavras[dicio->linhas] = malloc(strlen(str) * sizeof(char));
 		if(dicio->palavras[dicio->linhas] == NULL){
