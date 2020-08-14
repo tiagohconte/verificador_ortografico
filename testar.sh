@@ -3,7 +3,7 @@ ARQUIVOS=$(ls arq/)
 for i in $ARQUIVOS;
 do
 	echo -e "Rodando programa para $i..."
-	./ortografia < arq/$i > saida.txt
+	time ./ortografia < arq/$i > saida.txt
 	RES=$(diff saida.txt saidas-corretas/${i%.txt}-saida.txt)
 	if [ ! -z "$RES" ]
 	then
