@@ -4,52 +4,51 @@
 	Implementação de funções da biblioteca dicionário	*/
 
 #include "dicionario.h"
+// Define o quanto de memória será alocado por operação de aloc
+#define VALOR_ALOC 50000
 
 /* Função para carregar o dicionário na memória */
 int carrega_dicionario(tad_dicio *dicio){
 	// Abre arquivo do dicionário
 	FILE *arq_dicio;
+	int num_aloc = 1;		// Registra o número de alocações feitas	
 
+	dicio->linhas = 0;
+	dicio->palavras = NULL;
+	
+	// Alocação de espaço inicial na memória
+	dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
+	if(dicio->palavras == NULL){
+		fprintf(stderr, "Erro na alocação inicial do dicionário.\n");
+		return 0;
+	}
+
+	// Lê o arquivo dicionário e guarda na memória
 	arq_dicio = fopen(DIR, "r");
 	if(!arq_dicio){
 		fprintf(stderr, "Erro ao abrir arquivo dicionário.");
 		return 0;
 	}
 
-	char c;
-	dicio->linhas = 0;
-	dicio->palavras = 0;
-	// Conta o número de linhas no arquivo dicionário
-	while(!feof(arq_dicio)){
-		c = fgetc(arq_dicio);
-		if(c == '\n')
-			(dicio->linhas)++;
-	}
-
-	// Aloca espaço na memória para as palavras
-	dicio->palavras = malloc(dicio->linhas * sizeof(dicio->palavras));
-	if(dicio->palavras == NULL){
-		fprintf(stderr, "Erro ao alocar dicionário.\n");
-		return 0;
-	}
-
-	// Lê o arquivo dicionário e guarda na memória
-	rewind(arq_dicio);
 	char str[SIZE+1];
-	int i = 0;
 	while(!feof(arq_dicio)){
 		fgets(str, SIZE, arq_dicio);
 		// Aloca espaço para a palavra
-		dicio->palavras[i] = malloc(strlen(str) * sizeof(char));
-		if(dicio->palavras[i] == NULL){
+		if(dicio->linhas > (num_aloc * VALOR_ALOC)){
+			num_aloc++;
+			dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
+			printf("Linhas: %d, num_aloc: %d\n", dicio->linhas, num_aloc);
+		}
+		dicio->palavras[dicio->linhas] = malloc(strlen(str) * sizeof(char));
+		if(dicio->palavras[dicio->linhas] == NULL){
 			fprintf(stderr, "Erro ao alocar palavra.\n");
 			return 0;
 		}
 		str[strlen(str)-1] = '\0';
 		// Transforma as letras maiusculas em minusculas
 		minuscula(str);
-		strcpy(dicio->palavras[i], str);
-		i++;		
+		strcpy(dicio->palavras[dicio->linhas], str);
+		dicio->linhas++;
 	}
 	/* 	Ao colocar em minusculas o dicionario ficou desordenado
 		Portanto é feita a reoordenação das palavras */

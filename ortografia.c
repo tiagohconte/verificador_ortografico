@@ -24,9 +24,11 @@ int eh_letra(char c){
 	return 0;
 }
 
-int main(int argc, char const *argv[]){	
+// Declaração de variável global do tipo dicionário
+tad_dicio dicio;
 
-	tad_dicio dicio;
+int main(){
+	
 	// Armazenamento do dicionário na memória
 	if(!carrega_dicionario(&dicio)){
 		printf("Erro ao carregar dicionário.\nParando programa...\n");
