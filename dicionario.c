@@ -1,45 +1,45 @@
 /*	Feito por Tiago Henrique Conte	
-	Trabalho da disciplina de Programa√ß√£o 2 do BCC UFPR
-	Verificador Ortogr√°fico	
-	Implementa√ß√£o de fun√ß√µes da biblioteca dicion√°rio	*/
+	Trabalho da disciplina de ProgramaÁ„o 2 do BCC UFPR
+	Verificador Ortogr·fico	
+	ImplementaÁ„o de funÁıes da biblioteca dicion·rio	*/
 
 #include "dicionario.h"
-// Define o quanto de mem√≥ria ser√° alocado por opera√ß√£o de aloc
+// Define o quanto de memÛria ser· alocado por operaÁ„o de aloc
 #define VALOR_ALOC 50000
 
-/* Fun√ß√£o para carregar o dicion√°rio na mem√≥ria */
+/* FunÁ„o para carregar o dicion·rio na memÛria */
 int carrega_dicionario(tad_dicio *dicio){
-	// Abre arquivo do dicion√°rio
+	// Abre arquivo do dicion·rio
 	FILE *arq_dicio;
-	int num_aloc = 1;		// Registra o n√∫mero de aloca√ß√µes feitas	
+	int num_aloc = 1;		// Registra o n˙mero de alocaÁıes feitas	
 
 	dicio->linhas = 0;
 	dicio->palavras = NULL;
 	
-	// Aloca√ß√£o de espa√ßo inicial na mem√≥ria
+	// AlocaÁ„o de espaÁo inicial na memÛria
 	dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
 	if(dicio->palavras == NULL){
-		fprintf(stderr, "Erro na aloca√ß√£o inicial do dicion√°rio.\n");
+		fprintf(stderr, "Erro na alocaÁ„o inicial do dicion·rio.\n");
 		return 0;
 	}
 
-	// L√™ o arquivo dicion√°rio e guarda na mem√≥ria
+	// LÍ o arquivo dicion·rio e guarda na memÛria
 	arq_dicio = fopen(DIR, "r");
 	if(!arq_dicio){
-		fprintf(stderr, "Erro ao abrir arquivo dicion√°rio.");
+		fprintf(stderr, "Erro ao abrir arquivo dicion·rio.");
 		return 0;
 	}
 
 	char str[SIZE+1];
 	while(!feof(arq_dicio)){
-		// Verifica se a aloca√ß√£o feita anteriormente aidna √© suficiente para o n√∫mero de linhas
+		// Verifica se a alocaÁ„o feita anteriormente aidna È suficiente para o n˙mero de linhas
 		if(dicio->linhas == (num_aloc * VALOR_ALOC)){
 			num_aloc++;
 			dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
 		}
 
 		fgets(str, SIZE, arq_dicio);
-		// Aloca espa√ßo para a palavra		
+		// Aloca espaÁo para a palavra		
 		dicio->palavras[dicio->linhas] = malloc(strlen(str) * sizeof(char));
 		if(dicio->palavras[dicio->linhas] == NULL){
 			fprintf(stderr, "Erro ao alocar palavra.\n");
@@ -52,14 +52,14 @@ int carrega_dicionario(tad_dicio *dicio){
 		dicio->linhas++;
 	}
 	/* 	Ao colocar em minusculas o dicionario ficou desordenado
-		Portanto √© feita a reoordena√ß√£o das palavras */
+		Portanto È feita a reoordenaÁ„o das palavras */
 	qsort(dicio->palavras, dicio->linhas, sizeof(char*), cmpfunc);
 
 	fclose(arq_dicio);	
 	return 1;
 }
 
-// Libera espa√ßo da mem√≥ria
+// Libera espaÁo da memÛria
 void descarrega_dicionario(tad_dicio *dicio){
 	int i;
 
@@ -72,7 +72,7 @@ void descarrega_dicionario(tad_dicio *dicio){
 	dicio = NULL;
 }
 
-// Fun√ß√£o de compara√ß√£o para o sort
+// FunÁ„o de comparaÁ„o para o sort
 int cmpfunc(const void * a, const void * b){
 	const char **ia = (const char **)a;
 	const char **ib = (const char **)b;
@@ -90,8 +90,8 @@ void minuscula(char *str){
 	}
 }
 
-/* Busca palavra no dicion√°rio
-	Retorna 1 caso esteja no dicion√°rio e 0 caso contr√°rio*/
+/* Busca palavra no dicion·rio
+	Retorna 1 caso esteja no dicion·rio e 0 caso contr·rio*/
 int busca_dicio(tad_dicio *dicio, char *palavra){
 	int *busca;
 

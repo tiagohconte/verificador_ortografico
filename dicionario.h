@@ -1,7 +1,7 @@
 /*	Feito por Tiago Henrique Conte	
-	Trabalho da disciplina de ProgramaÃ§Ã£o 2 do BCC UFPR
-	Verificador OrtogrÃ¡fico	
-	Biblioteca DicionÃ¡rio	*/
+	Trabalho da disciplina de Programação 2 do BCC UFPR
+	Verificador Ortográfico	
+	Biblioteca Dicionário	*/
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -10,23 +10,23 @@
 #define DIR "brazilian"
 #define SIZE 50
 
-/*DefiniÃ§Ã£o do tipo dicionario*/
+/*Definição do tipo dicionario*/
 typedef struct tad_dicio {
 	int linhas;
 	char **palavras;
 } tad_dicio;
 
-/* FunÃ§Ã£o para carregar o dicionÃ¡rio na memÃ³ria */
+/* Função para carregar o dicionário na memória */
 int carrega_dicionario(tad_dicio *dicio);
 
-// Libera espaÃ§o da memÃ³ria
+// Libera espaço da memória
 void descarrega_dicionario(tad_dicio *dicio);
 
-// FunÃ§Ã£o de comparaÃ§Ã£o para o sort
+// Função de comparação para o sort
 int cmpfunc(const void * a, const void * b);
 
 // Transforma uma string em totalmente minuscula
 void minuscula(char *str);
 
-//Busca palavra no dicionÃ¡rio
+//Busca palavra no dicionário
 int busca_dicio(tad_dicio *dicio, char *palavra);
