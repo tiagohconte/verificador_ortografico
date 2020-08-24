@@ -1,33 +1,20 @@
-/*	Feito por Tiago Henrique Conte	
+/*	GRR20190374 Tiago Henrique Conte
+	Feito por Tiago Henrique Conte	
 	Trabalho da disciplina de Programação 2 do BCC UFPR
 	Verificador Ortográfico	*/
 
-/*#include <stdlib.h>
-#include <stdio.h>*/
-/*#include <string.h>*/
+#include <locale.h>
+#include <ctype.h>
 #include "dicionario.h"
 
 #define SIZE 50
-
-// Verifica se o char é uma letra
-int eh_letra(char c){
-	// Verifica se é letra minuscula
-	if(c >= 'a' && c <= 'z')
-		return 1;
-	// Verifica se é letra maiuscula
-	else if(c >= 'A' && c <= 'Z')
-		return 1;
-	// Verifica se é letra acentuada
-	else if((c >= -64 && c <= -1))
-		return 1;
-
-	return 0;
-}
 
 // Declaração de variável global do tipo dicionário
 tad_dicio dicio;
 
 int main(){
+
+	setlocale(LC_CTYPE, "pt_BR.ISO-8859-1");
 	
 	// Armazenamento do dicionário na memória
 	if(!carrega_dicionario(&dicio)){
@@ -42,14 +29,14 @@ int main(){
 
 	while(!feof(stdin)){
 		// Anda até encontrar uma letra
-		while(!eh_letra(c) && !feof(stdin)){
+		while(!isalpha(c) && !feof(stdin)){
 			printf("%c", c);
 			c = fgetc(stdin);
 		}
 		// Lê a palavra
 		char palavra[SIZE+1] = {0};
 		i = 0;
-		while(eh_letra(c) && !feof(stdin)){
+		while(isalpha(c) && !feof(stdin)){
 			palavra[i] = c;
 			c = fgetc(stdin);
 			i++;

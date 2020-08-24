@@ -1,11 +1,17 @@
-/*	Feito por Tiago Henrique Conte	
+/*	GRR20190374 Tiago Henrique Conte
+	Feito por Tiago Henrique Conte	
 	Trabalho da disciplina de Programação 2 do BCC UFPR
 	Verificador Ortográfico	
 	Implementação de funções da biblioteca dicionário	*/
 
 #include "dicionario.h"
-// Define o quanto de memória será alocado por operação de aloc
-#define VALOR_ALOC 50000
+
+// Função de comparação para o sort
+static int cmpfunc(const void * a, const void * b){
+	const char **ia = (const char **)a;
+	const char **ib = (const char **)b;
+	return strcmp(*ia, *ib);
+}
 
 /* Função para carregar o dicionário na memória */
 int carrega_dicionario(tad_dicio *dicio){
@@ -70,13 +76,6 @@ void descarrega_dicionario(tad_dicio *dicio){
 
 	dicio->palavras = NULL;
 	dicio = NULL;
-}
-
-// Função de comparação para o sort
-int cmpfunc(const void * a, const void * b){
-	const char **ia = (const char **)a;
-	const char **ib = (const char **)b;
-	return strcmp(*ia, *ib);
 }
 
 // Transforma uma string em totalmente minuscula
