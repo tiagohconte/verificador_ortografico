@@ -1,0 +1,27 @@
+# define as flags para compilação
+CFLAGS = -Wall
+CC = gcc
+ 
+objs = ortografia.o dicionario.o
+ 
+# regra default (primeira regra)
+all: ortografia
+ 
+# regras de ligacao
+ortografia: $(objs)
+ 
+# regras de compilação
+ortografia.o: ortografia.c dicionario.h
+dicionario.o: dicionario.c dicionario.h
+
+# testa o programa
+test:
+	./testar.sh
+
+# remove arquivos temporários
+clean:
+	-rm -f $(objs)
+
+# remove tudo o que não for o código-fonte
+purge: clean
+	-rm -f ortografia
