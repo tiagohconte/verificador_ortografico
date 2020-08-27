@@ -4,6 +4,9 @@
 	Verificador Ortográfico	*/
 
 #include <locale.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include <ctype.h>
 #include "dicionario.h"
 
@@ -14,7 +17,7 @@ tad_dicio dicio;
 
 int main(){
 
-	setlocale(LC_CTYPE, "pt_BR.ISO-8859-1");
+	setlocale(LC_CTYPE, "pt_BR.iso88591");
 	
 	// Armazenamento do dicionário na memória
 	if(!carrega_dicionario(&dicio)){

@@ -14,9 +14,9 @@ ortografia: $(objs)
 ortografia.o: ortografia.c dicionario.h
 dicionario.o: dicionario.c dicionario.h
 
-# testa o programa
-test:
-	./testar.sh
+# compila com flags de depuração
+debug: CFLAGS += -DDEBUG -g
+debug: all
 
 # remove arquivos temporários
 clean:

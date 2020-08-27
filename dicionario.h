@@ -4,10 +4,6 @@
 	Verificador Ortográfico	
 	Biblioteca Dicionário	*/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
 #ifndef __DIC__
 #define __DIC__
 

@@ -4,6 +4,10 @@
 	Verificador Ortográfico	
 	Implementação de funções da biblioteca dicionário	*/
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 #include "dicionario.h"
 
 // Função de comparação para o sort
@@ -15,24 +19,24 @@ static int cmpfunc(const void * a, const void * b){
 
 /* Função para carregar o dicionário na memória */
 int carrega_dicionario(tad_dicio *dicio){
-	// Abre arquivo do dicionário
+	// Inicialização do tipo FILE
 	FILE *arq_dicio;
 	int num_aloc = 1;		// Registra o número de alocações feitas	
 
 	dicio->linhas = 0;
 	dicio->palavras = NULL;
+
+	// Abre o arquivo dicionário
+	arq_dicio = fopen(DIR, "r");
+	if(!arq_dicio){
+		fprintf(stderr, "Erro ao abrir arquivo dicionário! Abortando programa...");
+		return 0;
+	}
 	
 	// Alocação de espaço inicial na memória
 	dicio->palavras = realloc(dicio->palavras, (num_aloc * VALOR_ALOC) * sizeof(dicio->palavras));
 	if(dicio->palavras == NULL){
 		fprintf(stderr, "Erro na alocação inicial do dicionário.\n");
-		return 0;
-	}
-
-	// Lê o arquivo dicionário e guarda na memória
-	arq_dicio = fopen(DIR, "r");
-	if(!arq_dicio){
-		fprintf(stderr, "Erro ao abrir arquivo dicionário.");
 		return 0;
 	}
 
@@ -54,13 +58,16 @@ int carrega_dicionario(tad_dicio *dicio){
 		str[strlen(str)-1] = '\0';
 		// Transforma as letras maiusculas em minusculas
 		minuscula(str);
-		strcpy(dicio->palavras[dicio->linhas], str);
+		strcpy(dicio->palavras[dicio->linhas], str);		
 		dicio->linhas++;
 	}
 	/* 	Ao colocar em minusculas o dicionario ficou desordenado
 		Portanto é feita a reoordenação das palavras */
 	qsort(dicio->palavras, dicio->linhas, sizeof(char*), cmpfunc);
-
+	#ifdef DEBUG
+	for(int i = 0; i < dicio->linhas; i++)
+		printf("%s\n", dicio->palavras[i]);
+	#endif
 	fclose(arq_dicio);	
 	return 1;
 }
@@ -83,8 +90,9 @@ void minuscula(char *str){
 	int i = 0;
 
 	while(str[i]){
-		if((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= -64 && str[i] <= -35))
-			str[i] += 32;
+		/*if((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= -64 && str[i] <= -35))
+			str[i] += 32;*/
+		str[i] = tolower(str[i]);
 		i++;
 	}
 }
