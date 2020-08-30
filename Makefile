@@ -1,10 +1,11 @@
+# GRR20190374 Tiago Henrique Conte
 # define as flags para compilação
 CFLAGS = -Wall
 CC = gcc
  
 objs = ortografia.o dicionario.o
  
-# regra default (primeira regra)
+# regra default
 all: ortografia
  
 # regras de ligacao
