@@ -1,10 +1,11 @@
 #!/bin/bash
-ARQUIVOS=$(ls arq/)
+ARQUIVOS=$(ls entradas/)
+
 for i in $ARQUIVOS;
 do
 	echo -e "Rodando programa para $i..."
-	time ./ortografia < arq/$i > saida.txt
-	RES=$(diff saida.txt saidas-corretas/${i%.txt}-saida.txt)
+	time ./ortografia < entradas/$i > saida.txt
+	RES=$(diff saida.txt esperadas/${i%.txt}-saida.txt)
 	if [ ! -z "$RES" ]
 	then
 		echo -e "$(tput setaf 1 && tput bold)ERRO! A saída não está correta para $i$(tput sgr 0)\n"
